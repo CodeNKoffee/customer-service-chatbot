@@ -33,21 +33,19 @@ response("why", "refund", "We offer refunds to ensure customer satisfaction with
 
 
 % Predicate to turn String into separate words
-
 split_string_into_words(String, Words):-
 	split_string(String, " ", "", Words).
 
 % Preficate to handle user queries
-
 handle_query(Question, Answer):-
 	split_string_into_words(Question, [FirstWord|RestOfWords]), 
 	check_response(FirstWord, RestOfWords, Answer), !.
 
 % Predicate to check the response based on the first word and keywords
 check_response(FirstWord, RestOfWords, Answer):-
-  response(FirstWord, _, Answer),  % Match the first word with the question type
-  member(Keyword, RestOfWords),    % Check if any keyword exists in the rest of the words
-  response(FirstWord, Keyword, Answer), !.  % Select the corresponding response
+  response(FirstWord, _, Answer), 
+  member(Keyword, RestOfWords),   
+  response(FirstWord, Keyword, Answer), !. 
 
 % Default response for unrecognized queries
 check_response(_, _, "I am sorry, I did not understand your question. Could you please rephrase your question"). 
