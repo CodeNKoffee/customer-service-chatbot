@@ -9,6 +9,7 @@ response("what", "subscribe", "You will receive regular updates and exclusive of
 response("what", "support", "Our support team can assist you with any issues or questions you have.").
 response("what", "refund", "Our refund policy allows you to request a refund within 30 days of purchase.").
 response("what", "delivery", "We offer standard, express, and overnight delivery options. Check our delivery page for more info.").
+response("what", "services", "We offer social media marketing, website development, and digital advertising services.").
 
 % Responses for "when" questions
 response("when", "support", "Our support team is available 24/7 to assist you.").
@@ -30,19 +31,23 @@ response("why", "subscribe", "Subscribing to our newsletter keeps you updated on
 response("why", "choose", "You should choose us for our commitment to quality and excellent customer service.").
 response("why", "refund", "We offer refunds to ensure customer satisfaction with our products.").
 
+
 % Predicate to turn String into separate words
-split_string_into_words(String, Words):- 
-  split_string(String, " ", "", Words).
+
+split_string_into_words(String, Words):-
+	split_string(String, " ", "", Words).
 
 % Preficate to handle user queries
-handle_query(Question, Answer):- 
-  split_string_into_words(Question, [FirstWord|RestOfWords]),
-  check_response(FirstWord, Keyword, Answer), !.
+
+handle_query(Question, Answer):-
+	split_string_into_words(Question, [FirstWord|RestOfWords]), 
+	check_response(FirstWord, RestOfWords, Answer), !.
 
 % Predicate to check the response based on the first word and keywords
-check_response(FirstWord, Keyword, Answer):-
-  response(FirstWord, Keyword, Answer),
-  memeber(Keyword, RestOfWords), !.
+check_response(FirstWord, RestOfWords, Answer):-
+  response(FirstWord, _, Answer),  % Match the first word with the question type
+  member(Keyword, RestOfWords),    % Check if any keyword exists in the rest of the words
+  response(FirstWord, Keyword, Answer), !.  % Select the corresponding response
 
 % Default response for unrecognized queries
 check_response(_, _, "I am sorry, I did not understand your question. Could you please rephrase your question"). 
