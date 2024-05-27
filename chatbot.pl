@@ -17,7 +17,7 @@ response("when", "delivery", "Delivery times depend on your location and the shi
 response("when", "offers", "We regularly update our offers and promotions. Subscribe to our newsletter to stay informed.").
 
 % Responses for "where" questions
-response("where", "support", "You can find our support teams contact details on our support page.").
+response("where", "support", "You can find our support team\''s contact details on our support page.").
 response("where", "office", "Our office is located at 1234 Main Street, Anytown, USA.").
 response("where", "delivery", "We deliver to most locations worldwide. Check our delivery page for more details.").
 
